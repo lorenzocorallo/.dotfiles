@@ -66,7 +66,7 @@ return require('packer').startup(function(use)
     use "pangloss/vim-javascript" --js support
     use "leafgarland/typescript-vim" --ts support
     use "peitalin/vim-jsx-typescript" --tsx support
-    use { 
+    use {
         'lervag/vimtex',
         opt = true,
         config = function ()
@@ -86,4 +86,8 @@ return require('packer').startup(function(use)
             })
         end
     })
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    }
 end)
