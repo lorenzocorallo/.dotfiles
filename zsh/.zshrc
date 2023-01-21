@@ -105,10 +105,13 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias gs="git status"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 unsetopt BEEP # disable all beep sounds
 eval $(ssh-agent) > /dev/null
+
+if [ -f ~/.aliases ]; then
+    . ~/.aliases
+fi
