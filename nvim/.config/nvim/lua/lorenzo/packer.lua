@@ -68,7 +68,6 @@ return require('packer').startup(function(use)
     use "peitalin/vim-jsx-typescript" --tsx support
     use {
         'lervag/vimtex',
-        opt = true,
         config = function ()
             vim.g.vimtex_view_general_viewer = 'zathura'
         end,
