@@ -10,7 +10,7 @@ typeset -u infopath
 infopath=(/usr/local/texlive/2022/texmf-dist/doc/info $infopath)
 
 if [[ -z $STOW_FOLDERS ]]; then
-    STOW_FOLDERS="scripts,tmux,nvim,zsh"
+    STOW_FOLDERS="scripts,tmux,nvim,zsh,i3"
 fi
 
 if [[ -z $DOTFILES ]]; then
