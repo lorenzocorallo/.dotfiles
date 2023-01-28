@@ -115,3 +115,5 @@ eval $(ssh-agent) > /dev/null
 if [ -f ~/.aliases ]; then
     . ~/.aliases
 fi
+
+bindkey -s ^f "tmux-sessionizer\n"

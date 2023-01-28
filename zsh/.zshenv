@@ -1,7 +1,7 @@
 . "$HOME/.cargo/env"
 
 typeset -U path
-path=(~/.local/scripts/ /usr/local/texlive/2022/bin/x86_64-linux $path)
+path=(~/.local/scripts /usr/local/texlive/2022/bin/x86_64-linux $path)
 
 typeset -u manpath
 manpath=(/usr/local/texlive/2022/texmf-dist/doc/man $manpath)
