@@ -30,3 +30,7 @@ fi
 if [ -d "$HOME/Documents/latex/templates/math_1" ]; then
     export MATH_1_TEX="$HOME/Documents/latex/templates/math_1"
 fi
+
+if [[ -f "$HOME/.env" ]]; then
+    source $HOME/.env
+fi

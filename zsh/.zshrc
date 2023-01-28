@@ -110,7 +110,6 @@ source $ZSH/oh-my-zsh.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 unsetopt BEEP # disable all beep sounds
-eval $(ssh-agent) > /dev/null
 
 if [ -f ~/.aliases ]; then
     . ~/.aliases
