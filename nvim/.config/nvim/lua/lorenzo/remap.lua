@@ -22,7 +22,7 @@ end)
 
 -- paste and delete don't lose yank
 vim.keymap.set("x", "p", [["_dP]])
-vim.keymap.set({ "n", "v" }, "d", [["_d]])
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
 -- system clipboard copy-to
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
