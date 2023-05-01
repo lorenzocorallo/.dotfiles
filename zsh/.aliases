@@ -1,2 +1,4 @@
 alias gs="git status"
 alias init_mtex="cp $MATH_1_TEX/* ."
+alias ns="npm start"
+alias pn="pnpm"
