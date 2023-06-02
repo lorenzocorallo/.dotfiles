@@ -1,7 +1,78 @@
 #!/usr/bin/env zsh 
 
+source ~/.profile ~/.env ~/.zshenv
+
+echo "apt update and upgrade"
+sudo apt-get update -y && sudo apt-get upgrade -y >/dev/null 
+
+echo "\n==================\n"
+
+pkgs="curl, wget, neofetch, stow, zsh, fzf, tmux"
+echo "Installing $pkgs"
+sudo apt-get install $(echo $pkgs | sed "s/,/ /g") -y >/dev/null 
+ 
+echo "\n==================\n"
+
+echo "Pulling git submodules"
+git submodule update --init --recursive >/dev/null 
+
+echo "\n==================\n"
+
+if ! command -v rustup &> /dev/null; then
+  echo "Installing Rust"
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+else
+  echo "Rust already installed $(rustc -V)"
+fi
+
+echo "\n==================\n"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+if ! command -v nvm &> /dev/null; then
+  echo "Installing NodeJs (NVM)"
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash 
+  nvm install node
+else 
+  echo "NVM already installed $(nvm -v)"
+fi
+
+echo "\n==================\n"
+
+if ! command -v dotnet &> /dev/null; then
+  echo "Installing CSharp (dotnet)"
+  sudo apt-get install -y dotnet-sdk-7.0 dotnet-sdk-6.0 >/dev/null
+else
+  echo "dotnet already installed $(dotnet --version)"
+fi
+
+echo "\n==================\n"
+
+packer_folder="$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim"
+if [[ ! -d $packer_folder ]]; then
+  echo "Cloning packer.nvim repo"
+  git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+    "$packer_folder" >/dev/null
+else
+  echo "packer.nvim already exists"
+fi
+
+echo "\n==================\n"
+
+p10k_folder="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
+if [[ ! -d $p10k_folder ]]; then
+  echo "Cloning powerlevel10k omz theme"
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$p10k_folder" >/dev/null
+else
+  echo "powerlevel10k theme already exists"
+fi
+
+echo "\n==================\n"
+
 if [[ -z $STOW_FOLDERS ]]; then
-    STOW_FOLDERS="scripts,tmux,nvim,zsh"
+    STOW_FOLDERS="scripts,tmux,nvim,zsh,i3"
 fi
 
 if [[ -z $DOTFILES ]]; then
@@ -15,6 +86,17 @@ do
     stow -D $folder
     stow $folder
 done
+
+echo "\n==================\n"
+
+if [[ "$SHELL" != *"zsh" ]]; then
+  echo "Setting zsh as default shell"
+  chsh -s $(which zsh)
+else
+  echo "zsh already default shell"
+fi
+
+echo "\n==================\n"
 
 echo "Done."
 
