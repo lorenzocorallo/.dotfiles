@@ -22,10 +22,6 @@ lsp.ensure_installed({
   'rust_analyzer',
 })
 
-lsp.set_preferences({
-  sign_icons = { }
-})
-
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
 local cmp_mappings = lsp.defaults.cmp_mappings({
@@ -54,11 +50,6 @@ lsp.on_attach(function(client, bufnr)
 
   vim.diagnostic.config({
     virtual_text = true,
-    signs = false,
-    update_in_insert = true,
-    underline = true,
-    severity_sort = false,
-    float = false,
   })
 
   if client.name == "omnisharp" then
@@ -83,7 +74,6 @@ null_ls.setup({
   sources = {
     -- Replace these with the tools you have installed
     null_ls.builtins.formatting.prettier,
-    null_ls.builtins.diagnostics.eslint_d,
   },
 })
 
