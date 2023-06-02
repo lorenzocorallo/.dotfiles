@@ -25,7 +25,10 @@ return require("packer").startup(function(use)
   }
   use "lukas-reineke/indent-blankline.nvim"
   use("nvim-treesitter/playground")
-  use "windwp/nvim-ts-autotag"
+  use {
+    "windwp/nvim-ts-autotag",
+    requires = { "nvim-treesitter" }
+  }
   use {
     "lewis6991/gitsigns.nvim",
     -- tag = "release" -- To use the latest release (do not use this if you run Neovim nightly or dev builds!)
