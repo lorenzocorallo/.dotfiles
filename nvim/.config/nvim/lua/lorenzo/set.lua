@@ -30,3 +30,13 @@ vim.opt.colorcolumn = "80"
 
 vim.g.mapleader = " "
 
+function SetCSharpSettings()
+  local file_extension = vim.fn.expand('%:e')
+  if file_extension == 'cs' then
+    vim.opt.tabstop = 4
+    vim.opt.softtabstop = 4
+    vim.opt.shiftwidth = 4
+  end
+end
+
+vim.cmd([[autocmd BufEnter * lua SetCSharpSettings()]])
