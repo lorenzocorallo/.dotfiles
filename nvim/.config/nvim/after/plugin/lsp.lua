@@ -62,14 +62,14 @@ lsp.on_attach(function(client, bufnr)
   })
 end)
 
-lsp.format_on_save({
-  format_opts = {
-    timeout_ms = 10000,
-  },
-  servers = {
-    ['null-ls'] = {'javascript', 'typescript', 'lua', 'typescriptreact', 'javascriptreact', 'python'},
-  }
-})
+-- lsp.format_on_save({
+--   format_opts = {
+--     timeout_ms = 10000,
+--   },
+--   servers = {
+--     ['null-ls'] = {'javascript', 'typescript', 'lua', 'typescriptreact', 'javascriptreact', 'python'},
+--   }
+-- })
 
 lsp.setup()
 
