@@ -60,6 +60,10 @@ lsp.on_attach(function(client, bufnr)
     severity_sort = false,
     float = false,
   })
+
+  if client.name == "omnisharp" then
+    client.server_capabilities.semanticTokensProvider = nil
+  end
 end)
 
 -- lsp.format_on_save({
