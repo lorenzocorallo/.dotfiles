@@ -71,8 +71,8 @@ fi
 
 echo "\n==================\n"
 
-if [[ -z $STOW_FOLDERS ]]; then
-    STOW_FOLDERS="scripts,tmux,nvim,zsh,i3"
+if [[ ! -d "$HOME/.fonts" ]]; then
+  mkdir "$HOME/.fonts"
 fi
 
 if [[ -z $DOTFILES ]]; then
@@ -80,12 +80,18 @@ if [[ -z $DOTFILES ]]; then
 fi
 
 pushd $DOTFILES
+STOW_FOLDERS="scripts,tmux,nvim,zsh,i3"
 for folder in $(echo $STOW_FOLDERS | sed "s/,/ /g")
 do 
     echo "stow $folder"
     stow -D $folder
     stow $folder
 done
+
+echo "\n==================\n"
+
+echo "Caching fonts"
+fc-cache -f "$HOME/.fonts"
 
 echo "\n==================\n"
 
