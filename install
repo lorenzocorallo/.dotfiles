@@ -18,6 +18,14 @@ git submodule update --init --recursive >/dev/null
 
 echo "\n==================\n"
 
+if ! command -v nvim &> /dev/null; then
+  echo "Installing nvim"
+  sudo snap install nvim --classic
+else
+  echo "Nvim already installed $(nvim -v | head -n 1)"
+fi
+
+echo "\n==================\n"
 if ! command -v rustup &> /dev/null; then
   echo "Installing Rust"
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
