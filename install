@@ -7,7 +7,7 @@ sudo apt-get update -y && sudo apt-get upgrade -y >/dev/null
 
 echo "\n==================\n"
 
-pkgs="curl, wget, neofetch, stow, zsh, fzf, tmux"
+pkgs="curl, wget, neofetch, stow, zsh, fzf, tmux, build-essential, gcc"
 echo "Installing $pkgs"
 sudo apt-get install $(echo $pkgs | sed "s/,/ /g") -y >/dev/null 
  
