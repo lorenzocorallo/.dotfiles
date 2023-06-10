@@ -42,7 +42,7 @@ export NVM_DIR="$HOME/.nvm"
 if ! command -v nvm &> /dev/null; then
   echo "Installing NodeJs (NVM)"
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash 
-  nvm install node
+  nvm install --lts
 else 
   echo "NVM already installed $(nvm -v)"
 fi
