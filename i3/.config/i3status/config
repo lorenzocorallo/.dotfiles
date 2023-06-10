@@ -1,20 +1,28 @@
 general {
-    colors = true
-    interval = 5
+  colors = true
+  interval = 5
 }
 
 order += "disk /"
 order += "load"
+order += "battery 0"
 order += "tztime local"
 
 tztime local {
-    format = "%H:%M:%S %d-%m-%Y"
+  format = "%H:%M:%S %d-%m-%Y"
 }
 
 load {
-        format = "%1min"
+  format = "%1min"
 }
 
 disk "/" {
-        format = "%avail"
+  format = "%avail"
+}
+
+battery 0 {
+  format = "%status %percentage"
+  path = "/sys/class/power_supply/BATT/uevent"
+  status_chr = ⚡
+  status_bat = 🔋
 }
