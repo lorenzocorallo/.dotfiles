@@ -44,32 +44,36 @@ return require("packer").startup(function(use)
       vim.cmd("colorscheme rose-pine")
     end
   })
-  use("theprimeagen/harpoon")
+  use {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    requires = { { "nvim-lua/plenary.nvim" } }
+  }
   use("mbbill/undotree")
   use("tpope/vim-fugitive")
   use {
     "VonHeikemen/lsp-zero.nvim",
     requires = {
       -- LSP Support
-      {"neovim/nvim-lspconfig"},
-      {"williamboman/mason.nvim"},
-      {"williamboman/mason-lspconfig.nvim"},
+      { "neovim/nvim-lspconfig" },
+      { "williamboman/mason.nvim" },
+      { "williamboman/mason-lspconfig.nvim" },
 
       -- Formatting
-      {"jose-elias-alvarez/null-ls.nvim"},
-      {"jay-babu/mason-null-ls.nvim"},
+      { "jose-elias-alvarez/null-ls.nvim" },
+      { "jay-babu/mason-null-ls.nvim" },
 
       -- Autocompletion
-      {"hrsh7th/nvim-cmp"},
-      {"hrsh7th/cmp-buffer"},
-      {"hrsh7th/cmp-path"},
-      {"saadparwaiz1/cmp_luasnip"},
-      {"hrsh7th/cmp-nvim-lsp"},
-      {"hrsh7th/cmp-nvim-lua"},
+      { "hrsh7th/nvim-cmp" },
+      { "hrsh7th/cmp-buffer" },
+      { "hrsh7th/cmp-path" },
+      { "saadparwaiz1/cmp_luasnip" },
+      { "hrsh7th/cmp-nvim-lsp" },
+      { "hrsh7th/cmp-nvim-lua" },
 
       -- Snippets
-      {"L3MON4D3/LuaSnip"},
-      {"rafamadriz/friendly-snippets"},
+      { "L3MON4D3/LuaSnip" },
+      { "rafamadriz/friendly-snippets" },
     }
   }
   use("terrortylor/nvim-comment")
@@ -81,7 +85,7 @@ return require("packer").startup(function(use)
 
   use {
     "lervag/vimtex",
-    config = function ()
+    config = function()
       vim.g.vimtex_view_general_viewer = "zathura"
     end,
   }
