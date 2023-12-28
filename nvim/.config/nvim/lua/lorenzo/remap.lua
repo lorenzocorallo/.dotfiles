@@ -40,3 +40,6 @@ vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
 -- chmod +x curr file
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+
+-- rename word under cursor
+vim.keymap.set("n", "<leader>*", ":%s/<C-r><C-w>/")

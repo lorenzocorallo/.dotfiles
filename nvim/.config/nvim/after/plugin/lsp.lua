@@ -76,7 +76,6 @@ null_ls.setup({
     null_ls.builtins.formatting.prettier,
     null_ls.builtins.formatting.csharpier,
     null_ls.builtins.formatting.xmlformat,
-    null_ls.builtins.formatting.google_java_format
   },
 })
 
