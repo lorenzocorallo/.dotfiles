@@ -30,6 +30,9 @@ vim.opt.colorcolumn = "80"
 
 vim.g.mapleader = " "
 
+-- Sync clipboard between OS and Neovim.
+vim.o.clipboard = 'unnamedplus'
+
 function SetCSharpSettings()
   local file_extension = vim.fn.expand('%:e')
   if file_extension == 'cs' then
