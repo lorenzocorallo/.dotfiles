@@ -8,4 +8,5 @@ It's a classic symbolic link dotfiles repo, but it uses `stow` to manage all the
 
 There are two scripts to either `install` and `clean` the environment.\
 Use `chmod +x ./install ./clean_env` to make them executable and then run `./install` or `./clean_env` based on the operation you wanna do.
+NOTE: the scripts will install packages and stuffs, so check them before executing.
 
