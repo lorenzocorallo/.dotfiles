@@ -58,17 +58,6 @@ fi
 
 echo "\n==================\n"
 
-packer_folder="$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim"
-if [[ ! -d $packer_folder ]]; then
-  echo "Cloning packer.nvim repo"
-  git clone --depth 1 https://github.com/wbthomason/packer.nvim\
-    "$packer_folder" >/dev/null
-else
-  echo "packer.nvim already exists"
-fi
-
-echo "\n==================\n"
-
 p10k_folder="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
 if [[ ! -d $p10k_folder ]]; then
   echo "Cloning powerlevel10k omz theme"
