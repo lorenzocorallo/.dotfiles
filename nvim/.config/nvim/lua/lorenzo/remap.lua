@@ -30,10 +30,20 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "[D]elete No Yank" }
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "Q", "<nop>")
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { desc = "Launch tmux-sessionizer" })
+vim.keymap.set(
+  "n",
+  "<C-f>",
+  "<cmd>silent !tmux neww tmux-sessionizer<CR>",
+  { desc = "Launch tmux-sessionizer" }
+)
 
 -- chmod +x curr file
-vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "Make File E[x]ecutable" })
+vim.keymap.set(
+  "n",
+  "<leader>x",
+  "<cmd>!chmod +x %<CR>",
+  { silent = true, desc = "Make File E[x]ecutable" }
+)
 
 -- rename word under cursor
 vim.keymap.set("n", "<leader>*", ":%s/<C-r><C-w>/", { desc = "Rename Current Word" })

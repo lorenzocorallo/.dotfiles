@@ -26,16 +26,16 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = "90"
 
 vim.g.mapleader = " "
 
 -- Sync clipboard between OS and Neovim.
-vim.o.clipboard = 'unnamedplus'
+vim.o.clipboard = "unnamedplus"
 
 function SetCSharpSettings()
-  local file_extension = vim.fn.expand('%:e')
-  if file_extension == 'cs' then
+  local file_extension = vim.fn.expand("%:e")
+  if file_extension == "cs" then
     vim.opt.tabstop = 4
     vim.opt.softtabstop = 4
     vim.opt.shiftwidth = 4

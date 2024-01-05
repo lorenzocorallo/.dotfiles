@@ -27,25 +27,25 @@ return {
     -- end
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+    capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
     local handlers = {
       function(server_name)
-        require("lspconfig")[server_name].setup {
-          capabilities = capabilities
-        }
+        require("lspconfig")[server_name].setup({
+          capabilities = capabilities,
+        })
       end,
       ["lua_ls"] = function()
         local lspconfig = require("lspconfig")
-        lspconfig.lua_ls.setup {
+        lspconfig.lua_ls.setup({
           settings = {
             Lua = {
               diagnostics = {
-                globals = { "vim" }
-              }
-            }
-          }
-        }
+                globals = { "vim" },
+              },
+            },
+          },
+        })
       end,
     }
 
@@ -53,7 +53,6 @@ return {
       ensure_installed = ensure_installed,
       handlers = handlers,
     })
-
 
     -- LSP REMAP --
     local autocmd = require("lorenzo.autocmd").autocmd
@@ -63,7 +62,7 @@ return {
       callback = function(e)
         vim.diagnostic.config({
           update_in_insert = true,
-          float =  {
+          float = {
             focusable = true,
             style = "minimal",
             border = "rounded",
@@ -88,21 +87,29 @@ return {
         keymap("K", vim.lsp.buf.hover, "Hover")
         keymap("<leader>c", vim.lsp.buf.code_action, "[C]ode Action")
         keymap("<leader>vd", vim.diagnostic.open_float, "[V]iew [D]iagnostics")
-        keymap("<leader>vws", vim.lsp.buf.workspace_symbol, "[V]iew [W]orkspace [S]ymbols")
-        keymap("<leader>vds", require("telescope.builtin").lsp_document_symbols, "[V]iew [D]ocument [S]ymbols")
+        keymap(
+          "<leader>vws",
+          vim.lsp.buf.workspace_symbol,
+          "[V]iew [W]orkspace [S]ymbols"
+        )
+        keymap(
+          "<leader>vds",
+          require("telescope.builtin").lsp_document_symbols,
+          "[V]iew [D]ocument [S]ymbols"
+        )
         keymap("<leader>vrr", vim.lsp.buf.references, "[V]iew [R]eferences")
         keymap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
         keymap("<C-h>", vim.lsp.buf.signature_help, "Signature [H]elp", "i")
-      end
+      end,
     })
     -- END --
 
     local cmp = require("cmp")
     local cmp_select = { behavior = cmp.SelectBehavior.Select }
     local luasnip = require("luasnip")
-    luasnip.config.setup {}
+    luasnip.config.setup({})
 
-    cmp.setup {
+    cmp.setup({
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)
@@ -111,17 +118,17 @@ return {
       completion = {
         completeopt = "menu,menuone,noinsert",
       },
-      mapping = cmp.mapping.preset.insert {
+      mapping = cmp.mapping.preset.insert({
         ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
         ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
         ["<CR>"] = cmp.mapping.confirm({ select = true }), -- use enter to confirm
         ["<C-Space>"] = cmp.mapping.complete(),
-      },
+      }),
       sources = {
         { name = "nvim_lsp" },
         { name = "luasnip" },
         { name = "path" },
       },
-    }
-  end
+    })
+  end,
 }
