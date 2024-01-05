@@ -93,7 +93,6 @@ return {
         keymap("<leader>vrr", vim.lsp.buf.references, "[V]iew [R]eferences")
         keymap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
         keymap("<C-h>", vim.lsp.buf.signature_help, "Signature [H]elp", "i")
-        keymap("<leader>f", vim.lsp.buf.format, "[F]ormat Current File")
       end
     })
     -- END --
