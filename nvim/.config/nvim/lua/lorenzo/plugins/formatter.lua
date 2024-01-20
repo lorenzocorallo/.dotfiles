@@ -36,6 +36,10 @@ return {
         cs = {
           require("formatter.filetypes.cs").csharpier,
         },
+
+        python = {
+          require("formatter.filetypes.python").ruff,
+        },
       },
     })
 

@@ -20,6 +20,8 @@ return {
       "eslint",
       "lua_ls",
       "rust_analyzer",
+      "ruff_lsp",
+      "pyright",
     }
 
     -- if client.name == "omnisharp" then
@@ -87,11 +89,7 @@ return {
         keymap("K", vim.lsp.buf.hover, "Hover")
         keymap("<leader>c", vim.lsp.buf.code_action, "[C]ode Action")
         keymap("<leader>vd", vim.diagnostic.open_float, "[V]iew [D]iagnostics")
-        keymap(
-          "<leader>vws",
-          vim.lsp.buf.workspace_symbol,
-          "[V]iew [W]orkspace [S]ymbols"
-        )
+        keymap("<leader>vws", vim.lsp.buf.workspace_symbol, "[V]iew [W]orkspace [S]ymbols")
         keymap(
           "<leader>vds",
           require("telescope.builtin").lsp_document_symbols,
