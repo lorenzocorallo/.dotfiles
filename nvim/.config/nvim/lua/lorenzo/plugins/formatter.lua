@@ -7,6 +7,7 @@ return {
     "typescriptreact",
     "cs",
     "lua",
+    "json",
   },
   config = function()
     -- local util = require("formatter.util")
@@ -39,6 +40,10 @@ return {
 
         python = {
           require("formatter.filetypes.python").ruff,
+        },
+
+        json = {
+          require("formatter.filetypes.json").prettier,
         },
       },
     })
