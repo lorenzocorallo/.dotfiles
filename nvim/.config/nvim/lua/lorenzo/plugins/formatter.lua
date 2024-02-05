@@ -8,6 +8,7 @@ return {
     "cs",
     "lua",
     "json",
+    "markdown",
   },
   config = function()
     -- local util = require("formatter.util")
@@ -44,6 +45,10 @@ return {
 
         json = {
           require("formatter.filetypes.json").prettier,
+        },
+
+        markdown = {
+          require("formatter.filetypes.markdown").prettier,
         },
       },
     })
