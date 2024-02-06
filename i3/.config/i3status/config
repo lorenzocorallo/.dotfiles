@@ -25,4 +25,5 @@ battery 0 {
   path = "/sys/class/power_supply/BATT/uevent"
   status_chr = ⚡
   status_bat = 🔋
+  last_full_capacity = true
 }
