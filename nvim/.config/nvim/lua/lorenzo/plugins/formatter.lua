@@ -45,7 +45,7 @@ return {
         },
 
         json = {
-          require("formatter.filetypes.json").prettier,
+          require("formatter.filetypes.json").jq,
         },
 
         markdown = {
