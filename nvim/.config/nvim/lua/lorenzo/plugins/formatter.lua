@@ -9,6 +9,7 @@ return {
     "lua",
     "json",
     "markdown",
+    "python",
   },
   config = function()
     -- local util = require("formatter.util")
