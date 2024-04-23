@@ -51,6 +51,10 @@ return {
         markdown = {
           require("formatter.filetypes.markdown").prettier,
         },
+
+        html = {
+          require("formatter.filetypes.html").prettier,
+        },
       },
     })
 
