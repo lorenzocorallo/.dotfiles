@@ -55,6 +55,10 @@ return {
         html = {
           require("formatter.filetypes.html").prettier,
         },
+
+        css = {
+          require("formatter.filetypes.css").prettier,
+        },
       },
     })
 
