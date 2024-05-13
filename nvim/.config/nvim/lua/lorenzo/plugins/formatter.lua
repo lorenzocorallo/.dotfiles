@@ -10,6 +10,8 @@ return {
     "json",
     "markdown",
     "python",
+    "css",
+    "html",
   },
   config = function()
     -- local util = require("formatter.util")
