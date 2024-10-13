@@ -22,6 +22,7 @@ return {
       "rust_analyzer",
       "ruff_lsp",
       "pyright",
+      "gopls",
     }
 
     -- if client.name == "omnisharp" then
@@ -45,6 +46,15 @@ return {
               diagnostics = {
                 globals = { "vim" },
               },
+            },
+          },
+        })
+      end,
+      ["gopls"] = function()
+        require("lspconfig").gopls.setup({
+          settings = {
+            gopls = {
+              gofumpt = true,
             },
           },
         })

@@ -12,6 +12,7 @@ return {
     "python",
     "css",
     "html",
+    "go",
   },
   config = function()
     -- local util = require("formatter.util")
@@ -61,6 +62,10 @@ return {
         css = {
           require("formatter.filetypes.css").prettier,
         },
+
+        go = {
+          require("formatter.filetypes.go").gofumpt,
+        }
       },
     })
 
