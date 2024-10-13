@@ -16,7 +16,7 @@ return {
     require("mason").setup()
 
     local ensure_installed = {
-      "tsserver",
+      "ts_ls",
       "eslint",
       "lua_ls",
       "rust_analyzer",
