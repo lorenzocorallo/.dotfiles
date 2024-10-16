@@ -19,6 +19,13 @@ git submodule update --init --recursive >/dev/null
 echo "\n==================\n"
 
 if ! command -v nvim &> /dev/null; then
+  echo "Installing kitty"
+  curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+fi
+
+echo "\n==================\n"
+
+if ! command -v nvim &> /dev/null; then
   echo "Installing nvim"
   sudo snap install nvim --classic
 else
@@ -73,7 +80,7 @@ if [[ -z $DOTFILES ]]; then
 fi
 
 pushd $DOTFILES
-STOW_FOLDERS="scripts,tmux,nvim,zsh,i3"
+STOW_FOLDERS="scripts,tmux,nvim,zsh,i3,kitty"
 for folder in $(echo $STOW_FOLDERS | sed "s/,/ /g")
 do 
     echo "stow $folder"
