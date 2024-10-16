@@ -38,3 +38,8 @@ fi
 if [[ -f "$HOME/.env" ]]; then
     source $HOME/.env
 fi
+
+export GOLANG_BIN="/usr/local/go/bin"
+if [[ -d "$GOLANG_BIN" ]]; then
+    export PATH="$PATH:$GOLANG_BIN"
+fi

@@ -10,6 +10,7 @@ return {
     "saadparwaiz1/cmp_luasnip",
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-path",
+    "fatih/vim-go",
   },
   priority = 100,
   config = function()
@@ -61,12 +62,22 @@ return {
       end,
     }
 
+    -- vim.go config --
+    vim.g.go_addtags_transform = "camelcase"
+    vim.g.go_fmt_autosave = 0
+    vim.g.go_mod_fmt_autosave = 0
+    vim.g.go_imports_autosave = 0
+
+    vim.g.go_term_enabled = 1
+    vim.g.go_term_mode = "split"
+    -- END --
+
     require("mason-lspconfig").setup({
       ensure_installed = ensure_installed,
       handlers = handlers,
     })
 
-    -- LSP REMAP --
+    -- REMAP --
     local autocmd = require("lorenzo.autocmd").autocmd
     local group = require("lorenzo.autocmd").group
     autocmd("LspAttach", {
@@ -85,29 +96,61 @@ return {
           virtual_text = true,
         })
 
-        local keymap = function(keys, func, desc, mode)
+        local keymap = function(keys, func, desc, mode, category)
           if desc then
-            desc = "LSP: " .. desc
+            desc = (category or "LSP") .. ": " .. desc
           end
 
           vim.keymap.set(mode or "n", keys, func, { buffer = e.buf, desc = desc })
         end
 
-        keymap("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-        keymap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-
         keymap("K", vim.lsp.buf.hover, "Hover")
+        keymap("<leader>\\", ":LspRestart<CR>", "Restart the LSP")
         keymap("<leader>c", vim.lsp.buf.code_action, "[C]ode Action")
         keymap("<leader>vd", vim.diagnostic.open_float, "[V]iew [D]iagnostics")
         keymap("<leader>vws", vim.lsp.buf.workspace_symbol, "[V]iew [W]orkspace [S]ymbols")
+        keymap("<leader>vrr", vim.lsp.buf.references, "[V]iew [R]eferences")
+        keymap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+        keymap("<C-h>", vim.lsp.buf.signature_help, "Signature [H]elp", "i")
+
+        -- telescope remaps --
         keymap(
           "<leader>vds",
           require("telescope.builtin").lsp_document_symbols,
           "[V]iew [D]ocument [S]ymbols"
         )
-        keymap("<leader>vrr", vim.lsp.buf.references, "[V]iew [R]eferences")
-        keymap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-        keymap("<C-h>", vim.lsp.buf.signature_help, "Signature [H]elp", "i")
+        keymap("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+        keymap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+        -- end
+
+        local termCmdAutofocus = function(cmd)
+          return function()
+            vim.cmd(cmd)
+            vim.cmd("wincmd p")
+            vim.cmd("startinsert")
+          end
+        end
+
+        if vim.bo.filetype == "go" then
+          -- Golang remaps --
+          keymap("<leader>Gta", ":GoAddTags<CR>", "[T]ags [A]dd", "n", "GOLANG")
+          keymap("<leader>Gtr", ":GoRemoveTags<CR>", "[T]ags [R]emove", "n", "GOLANG")
+          keymap("<leader>GR", termCmdAutofocus(":GoRun<CR>"), "[R]un", "n", "GOLANG")
+          keymap("<leader>GB", ":GoBuild<CR>", "[B]uild", "n", "GOLANG")
+          keymap("<leader>GTa", ":GoTest<CR>", "[T]est [A]ll", "n", "GOLANG")
+          keymap(
+            "<leader>GTf",
+            termCmdAutofocus(":GoTestFunc<CR>"),
+            "[T]est Single [F]unction",
+            "n",
+            "GOLANG"
+          )
+          keymap("<leader>Gmt", function()
+            local output = vim.fn.system("go mod tidy")
+            print(output)
+            vim.cmd("LspRestart")
+          end, "[M]od [T]idy", "n", "GOLANG")
+        end
       end,
     })
     -- END --
