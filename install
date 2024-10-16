@@ -68,10 +68,6 @@ fi
 
 echo "\n==================\n"
 
-if [[ ! -d "$HOME/.fonts" ]]; then
-  mkdir "$HOME/.fonts"
-fi
-
 if [[ -z $DOTFILES ]]; then
     DOTFILES=$HOME/.dotfiles
 fi
