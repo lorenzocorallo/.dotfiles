@@ -207,3 +207,7 @@ bar {
 
 # start gsd-xsettings for gnome-tweaks theme
 exec --no-startup-id /usr/libexec/gsd-xsettings
+
+
+# start Compton compositer
+exec --no-startup-id --no-startup-id /usr/bin/picom -c
