@@ -55,9 +55,9 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 #interactive screenshot by pressing printscreen
-bindsym Print exec gnome-screenshot -i 
-#crop-area screenshot by pressing Mod + printscreen
-bindsym $mod+Print exec gnome-screenshot -a
+bindsym Print exec "maim -i $(xdotool getactivewindow) | xclip -selection clipboard -t image/png"
+#crop-area screenshot > clipboard
+bindsym Shift+Print exec "maim -s | xclip -selection clipboard -t image/png"
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
