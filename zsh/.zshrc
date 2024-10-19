@@ -128,3 +128,6 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# Turso
+export PATH="/home/lorenzo/.turso:$PATH"

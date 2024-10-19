@@ -31,6 +31,11 @@ if [ -d "$LG_WEBOS_TV_SDK_HOME/CLI/bin" ]; then
   export PATH="$PATH:$WEBOS_CLI_TV"
 fi
 
+if [ -d "/opt/Mullvad VPN/" ]; then
+  # Adding the bin directory of mullvad to the PATH variable
+  export PATH="$PATH:/opt/Mullvad VPN/"
+fi
+
 if [ -d "$HOME/Documents/latex/templates/math_1" ]; then
     export MATH_1_TEX="$HOME/Documents/latex/templates/math_1"
 fi
