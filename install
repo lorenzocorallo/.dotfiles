@@ -2,28 +2,42 @@
 
 source ~/.profile ~/.env ~/.zshenv
 
+ARCH=""
+SEPARATOR='\n====================================\n'
+case $(uname -m) in
+  i386 | i686)   ARCH="386" ;;
+  x86_64) ARCH="amd64" ;;
+  arm)    dpkg --print-architecture | grep -q "arm64" && ARCH="arm64" || architecture="arm" ;;
+esac
+
 echo "apt update and upgrade"
 sudo apt-get update -y && sudo apt-get upgrade -y >/dev/null 
 
-echo "\n==================\n"
+echo -e $SEPARATOR
 
 pkgs="curl, wget, neofetch, stow, zsh, fzf, tmux, build-essential, gcc, i3"
 echo "Installing $pkgs"
 sudo apt-get install $(echo $pkgs | sed "s/,/ /g") -y >/dev/null 
  
-echo "\n==================\n"
+echo -e $SEPARATOR
 
 echo "Pulling git submodules"
 git submodule update --init --recursive >/dev/null 
 
-echo "\n==================\n"
+echo -e $SEPARATOR
 
 if ! command -v kitty &> /dev/null; then
-  echo "Installing kitty"
+  echo "Installing kitty and setting it as the default terminal"
   curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+  sudo ln -s ~/.local/kitty.app/bin/kitty /usr/bin/
+  sudo ln -s ~/.local/kitty.app/bin/kitten /usr/bin/
+  sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/kitty 50
+  sudo update-alternatives --set x-terminal-emulator /usr/bin/kitty
+else
+  echo "Kitty already installed $(kitty -v)"
 fi
 
-echo "\n==================\n"
+echo -e $SEPARATOR
 
 if ! command -v nvim &> /dev/null; then
   echo "Installing nvim"
@@ -32,7 +46,7 @@ else
   echo "Nvim already installed $(nvim -v | head -n 1)"
 fi
 
-echo "\n==================\n"
+echo -e $SEPARATOR
 if ! command -v rustup &> /dev/null; then
   echo "Installing Rust"
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -40,7 +54,7 @@ else
   echo "Rust already installed $(rustc -V)"
 fi
 
-echo "\n==================\n"
+echo -e $SEPARATOR
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -54,7 +68,7 @@ else
   echo "NVM already installed $(nvm -v)"
 fi
 
-echo "\n==================\n"
+echo -e $SEPARATOR
 
 if ! command -v dotnet &> /dev/null; then
   echo "Installing CSharp (dotnet)"
@@ -63,7 +77,20 @@ else
   echo "dotnet already installed $(dotnet --version)"
 fi
 
-echo "\n==================\n"
+echo -e $SEPARATOR
+
+if ! command -v go &> /dev/null; then
+  GO_VERSION="$(curl https://go.dev/VERSION\?m\=text 2>&1 | head | sed -n '4p')"
+  GO_URL="https://go.dev/dl/${GO_VERSION}.linux-${ARCH}.tar.gz"
+  wget "$GO_URL" -P /tmp
+  GO_FN="/tmp/${GO_VERSION}.linux-${ARCH}.tar.gz"
+  sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf "${GO_FN}"
+  /usr/local/go/bin/go version
+else
+  echo "golang already installed $(go version)"
+fi
+
+echo -e $SEPARATOR
 
 p10k_folder="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
 if [[ ! -d $p10k_folder ]]; then
@@ -73,7 +100,7 @@ else
   echo "powerlevel10k theme already exists"
 fi
 
-echo "\n==================\n"
+echo -e $SEPARATOR
 
 if [[ -z $DOTFILES ]]; then
     DOTFILES=$HOME/.dotfiles
@@ -88,12 +115,12 @@ do
     stow $folder
 done
 
-echo "\n==================\n"
+echo -e $SEPARATOR
 
 echo "Caching fonts"
 fc-cache -f "$HOME/.fonts"
 
-echo "\n==================\n"
+echo -e $SEPARATOR
 
 if [[ "$SHELL" != *"zsh" ]]; then
   echo "Setting zsh as default shell"
@@ -102,7 +129,9 @@ else
   echo "zsh already default shell"
 fi
 
-echo "\n==================\n"
+echo -e $SEPARATOR
+
+source ~/.profile ~/.env ~/.zshenv
 
 echo "Done."
 
