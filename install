@@ -18,7 +18,7 @@ git submodule update --init --recursive >/dev/null
 
 echo "\n==================\n"
 
-if ! command -v nvim &> /dev/null; then
+if ! command -v kitty &> /dev/null; then
   echo "Installing kitty"
   curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 fi
