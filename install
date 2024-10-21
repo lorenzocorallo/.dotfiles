@@ -38,6 +38,17 @@ sudo apt-get install $(echo $pkgs | sed "s/,/ /g") -y >/dev/null
  
 echo -e $SEPARATOR
 
+if ! command -v brave-browser &> /dev/null; then
+  echo "Installing brave-browser"
+  sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+  echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+  sudo apt update && sudo apt install brave-browser -y >/dev/null
+else
+  echo "brave-browser already installed"
+fi
+
+echo -e $SEPARATOR
+
 echo "Pulling git submodules"
 git submodule update --init --recursive >/dev/null 
 
