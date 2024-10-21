@@ -48,3 +48,7 @@ export GOLANG_BIN="/usr/local/go/bin"
 if [[ -d "$GOLANG_BIN" ]]; then
     export PATH="$PATH:$GOLANG_BIN"
 fi
+
+if [[ -d "/opt/nvim-linux64/bin/" ]]; then
+    export PATH="$PATH:/opt/nvim-linux64/bin/"
+fi
