@@ -10,6 +10,23 @@ case $(uname -m) in
   arm)    dpkg --print-architecture | grep -q "arm64" && ARCH="arm64" || architecture="arm" ;;
 esac
 
+echo -e $SEPARATOR
+
+if [[ -z $DOTFILES ]]; then
+    DOTFILES=$HOME/.dotfiles
+fi
+
+pushd $DOTFILES
+STOW_FOLDERS="scripts,tmux,nvim,zsh,i3,kitty"
+for folder in $(echo $STOW_FOLDERS | sed "s/,/ /g")
+do 
+    echo "stow $folder"
+    stow -D $folder
+    stow $folder
+done
+
+echo -e $SEPARATOR
+
 echo "apt update and upgrade"
 sudo apt-get update -y && sudo apt-get upgrade -y >/dev/null 
 
@@ -99,21 +116,6 @@ if [[ ! -d $p10k_folder ]]; then
 else
   echo "powerlevel10k theme already exists"
 fi
-
-echo -e $SEPARATOR
-
-if [[ -z $DOTFILES ]]; then
-    DOTFILES=$HOME/.dotfiles
-fi
-
-pushd $DOTFILES
-STOW_FOLDERS="scripts,tmux,nvim,zsh,i3,kitty"
-for folder in $(echo $STOW_FOLDERS | sed "s/,/ /g")
-do 
-    echo "stow $folder"
-    stow -D $folder
-    stow $folder
-done
 
 echo -e $SEPARATOR
 
