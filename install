@@ -17,7 +17,7 @@ if [[ -z $DOTFILES ]]; then
 fi
 
 pushd $DOTFILES
-STOW_FOLDERS="scripts,tmux,nvim,zsh,i3,kitty"
+STOW_FOLDERS="scripts,tmux,nvim,zsh,i3,kitty,fonts"
 for folder in $(echo $STOW_FOLDERS | sed "s/,/ /g")
 do 
     echo "stow $folder"
