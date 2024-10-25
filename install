@@ -32,7 +32,7 @@ sudo apt-get update -y && sudo apt-get upgrade -y >/dev/null
 
 echo -e $SEPARATOR
 
-pkgs="curl, wget, neofetch, stow, zsh, fzf, tmux, build-essential, gcc, i3, xclip, python3, python3-venv"
+pkgs="curl, wget, neofetch, stow, zsh, fzf, tmux, build-essential, gcc, i3, xclip, python3, python3-venv, picom, nitrogen, ripgrep"
 echo "Installing $pkgs"
 sudo apt-get install $(echo $pkgs | sed "s/,/ /g") -y >/dev/null 
  
