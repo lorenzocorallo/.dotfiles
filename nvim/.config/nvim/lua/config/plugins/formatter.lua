@@ -1,19 +1,5 @@
 return {
   "mhartington/formatter.nvim",
-  ft = {
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-    "cs",
-    "lua",
-    "json",
-    "markdown",
-    "python",
-    "css",
-    "html",
-    "go",
-  },
   config = function()
     -- local util = require("formatter.util")
 
@@ -24,19 +10,19 @@ return {
         },
 
         javascript = {
-          require("formatter.filetypes.javascript").prettier,
+          require("formatter.filetypes.javascript").prettierd,
         },
 
         javascriptreact = {
-          require("formatter.filetypes.javascriptreact").prettier,
+          require("formatter.filetypes.javascriptreact").prettierd,
         },
 
         typescript = {
-          require("formatter.filetypes.typescript").prettier,
+          require("formatter.filetypes.typescript").prettierd,
         },
 
         typescriptreact = {
-          require("formatter.filetypes.typescriptreact").prettier,
+          require("formatter.filetypes.typescriptreact").prettierd,
         },
 
         cs = {
@@ -52,15 +38,19 @@ return {
         },
 
         markdown = {
-          require("formatter.filetypes.markdown").prettier,
+          require("formatter.filetypes.markdown").prettierd,
         },
 
         html = {
-          require("formatter.filetypes.html").prettier,
+          require("formatter.filetypes.html").prettierd,
         },
 
         css = {
-          require("formatter.filetypes.css").prettier,
+          require("formatter.filetypes.css").prettierd,
+        },
+
+        yaml = {
+          require("formatter.filetypes.yaml").prettierd,
         },
 
         go = {

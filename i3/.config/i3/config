@@ -170,6 +170,8 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
+bindsym $mod+Control+k exec $HOME/.local/scripts/i3-keyboard-layout cycle us it
+
 # resize window (you can also use the mouse for that)
 mode "resize" {
 # These bindings trigger as soon as you enter the resize mode
@@ -197,17 +199,16 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-bar {
-    status_command i3status
-    position top
-}
-
-
 # start gsd-xsettings for gnome-tweaks theme
 exec --no-startup-id /usr/libexec/gsd-xsettings
 
-
 # start Compton compositer
-exec --no-startup-id --no-startup-id /usr/bin/picom -c
+exec --no-startup-id /usr/bin/picom -c
+
+# start polybar
+exec_always ~/.config/polybar/launch.sh &
+
+# start nitrogen bg
+exec --no-startup-id nitrogen --restore
+
+exec --no-startup-id setxkbmap -layout us

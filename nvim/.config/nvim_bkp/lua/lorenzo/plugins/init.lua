@@ -29,8 +29,13 @@ return {
       require("nvim_comment").setup({})
     end,
   },
-
-  "lukas-reineke/indent-blankline.nvim",
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    ---@module "ibl"
+    ---@type ibl.config
+    opts = {},
+  },
   { "lewis6991/gitsigns.nvim", opts = {} },
   "theprimeagen/vim-be-good",
   "lambdalisue/suda.vim",

@@ -131,3 +131,9 @@ esac
 
 # Turso
 export PATH="/home/lorenzo/.turso:$PATH"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/bin/terraform terraform
+
+# direnv for .envrc
+eval "$(direnv hook zsh)"

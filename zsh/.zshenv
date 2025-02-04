@@ -49,6 +49,16 @@ if [[ -d "$GOLANG_BIN" ]]; then
     export PATH="$PATH:$GOLANG_BIN"
 fi
 
+export GOPATH=$HOME/go
+if [[ -d "$GOPATH" ]]; then
+  export PATH=$PATH:$GOPATH/bin
+fi
+
+
 if [[ -d "/opt/nvim-linux64/bin/" ]]; then
     export PATH="$PATH:/opt/nvim-linux64/bin/"
+fi
+
+if [[ -d "$HOME/.dotnet" ]]; then
+    export PATH="$PATH:$HOME/.dotnet"
 fi
