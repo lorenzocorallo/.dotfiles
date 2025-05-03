@@ -1,3 +1,5 @@
+export SSH_AUTH_SOCK=~/.1password/agent.sock
+
 if [[ -f "$HOME/.profile" ]]; then
     source $HOME/.profile
 fi

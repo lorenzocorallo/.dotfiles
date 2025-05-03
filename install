@@ -17,69 +17,29 @@ if [[ -z $DOTFILES ]]; then
 fi
 
 pushd $DOTFILES
-STOW_FOLDERS="scripts,tmux,nvim,zsh,i3,kitty,fonts"
+STOW_FOLDERS="scripts,tmux,nvim,zsh,hypr,kitty,fonts"
 for folder in $(echo $STOW_FOLDERS | sed "s/,/ /g")
 do 
     echo "stow $folder"
-    stow -D $folder
-    stow $folder
+    stow -R $folder
 done
 
 echo -e $SEPARATOR
 
-echo "apt update and upgrade"
-sudo apt-get update -y && sudo apt-get upgrade -y >/dev/null 
-
-echo -e $SEPARATOR
-
-pkgs="curl, wget, neofetch, stow, zsh, fzf, tmux, build-essential, gcc, i3, xclip, python3, python3-venv, picom, nitrogen, ripgrep"
+pkgs="stow, zsh, fzf, tmux, ripgrep, neovim, go, xdg-desktop-portal, hyprpolkitagent"
 echo "Installing $pkgs"
-sudo apt-get install $(echo $pkgs | sed "s/,/ /g") -y >/dev/null 
+sudo pacman -S --needed --noconfirm $(echo $pkgs | sed "s/, / /g")
  
-echo -e $SEPARATOR
-
-if ! command -v brave-browser &> /dev/null; then
-  echo "Installing brave-browser"
-  sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-  echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-  sudo apt update && sudo apt install brave-browser -y >/dev/null
-else
-  echo "brave-browser already installed"
-fi
-
 echo -e $SEPARATOR
 
 echo "Pulling git submodules"
 git submodule update --init --recursive >/dev/null 
 
 echo -e $SEPARATOR
-
-if ! command -v kitty &> /dev/null; then
-  echo "Installing kitty and setting it as the default terminal"
-  curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
-  sudo ln -s ~/.local/kitty.app/bin/kitty /usr/bin/
-  sudo ln -s ~/.local/kitty.app/bin/kitten /usr/bin/
-  sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/kitty 50
-  sudo update-alternatives --set x-terminal-emulator /usr/bin/kitty
-else
-  echo "Kitty already installed $(kitty -v)"
-fi
-
-echo -e $SEPARATOR
-
-if ! command -v nvim &> /dev/null; then
-  echo "Installing nvim"
-  curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
-  sudo rm -rf /opt/nvim
-  sudo tar -C /opt -xzf nvim-linux64.tar.gz
-else
-  echo "Nvim already installed $(nvim -v | head -n 1)"
-fi
-
-echo -e $SEPARATOR
 if ! command -v rustup &> /dev/null; then
   echo "Installing Rust"
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  sudo pacman -S --needed --noconfirm rustup
+  rustup default stable
 else
   echo "Rust already installed $(rustc -V)"
 fi
@@ -92,7 +52,7 @@ export NVM_DIR="$HOME/.nvm"
 
 if ! command -v nvm &> /dev/null; then
   echo "Installing NodeJs (NVM)"
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash 
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash 
 else 
   echo "NVM already installed $(nvm -v)"
 fi
@@ -101,33 +61,6 @@ if (! command -v npm &> /dev/null) && (command -v nvm &> /dev/null); then
   nvm install --lts
 else
   echo "npm already installed"
-fi
-
-echo -e $SEPARATOR
-
-if ! command -v dotnet &> /dev/null; then
-  echo "Installing CSharp (dotnet)"
-  pushd "/tmp"
-  wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
-  chmod +x dotnet-install.sh
-  ./dotnet-install.sh --channel 8.0
-  popd
-  echo "dotnet installed $($HOME/.dotnet/dotnet --version)"
-else
-  echo "dotnet already installed $(dotnet --version)"
-fi
-
-echo -e $SEPARATOR
-
-if ! command -v go &> /dev/null; then
-  GO_VERSION="$(curl https://go.dev/VERSION\?m\=text 2>&1 | head | sed -n '4p')"
-  GO_URL="https://go.dev/dl/${GO_VERSION}.linux-${ARCH}.tar.gz"
-  wget "$GO_URL" -P /tmp
-  GO_FN="/tmp/${GO_VERSION}.linux-${ARCH}.tar.gz"
-  sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf "${GO_FN}"
-  /usr/local/go/bin/go version
-else
-  echo "golang already installed $(go version)"
 fi
 
 echo -e $SEPARATOR
