@@ -2,7 +2,8 @@
 
 theme = rose-pine
 background = 000000
-background-opacity = 0.9
+background-opacity = 0.8
+background-blur = 0
 
 font-family = "JetBrainsMono Nerd Font"
 font-style-italic = false

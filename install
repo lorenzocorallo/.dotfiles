@@ -4,6 +4,8 @@ source ~/.profile ~/.env ~/.zshenv
 
 ARCH=""
 SEPARATOR='\n====================================\n'
+PACMAN_PKGS="stow zsh fzf tmux ripgrep neovim go xdg-desktop-portal hyprpolkitagent less ttf-jetbrains-mono-nerd yad waybar hyprlock pavucontrol hyprpaper"
+STOW_FOLDERS="scripts,tmux,nvim,zsh,hypr,kitty,fonts,ghostty,waybar"
 case $(uname -m) in
   i386 | i686)   ARCH="386" ;;
   x86_64) ARCH="amd64" ;;
@@ -16,14 +18,12 @@ if [[ -z $DOTFILES ]]; then
     DOTFILES=$HOME/.dotfiles
 fi
 
-pkgs="stow, zsh, fzf, tmux, ripgrep, neovim, go, xdg-desktop-portal, hyprpolkitagent, less, ttf-jetbrains-mono-nerd, yad"
-echo "Installing $pkgs"
-sudo pacman -S --needed --noconfirm $(echo $pkgs | sed "s/, / /g")
+echo "Installing $PACMAN_PKGS"
+sudo pacman -S --needed --noconfirm $PACMAN_PKGS
  
 echo -e $SEPARATOR
 
 pushd $DOTFILES
-STOW_FOLDERS="scripts,tmux,nvim,zsh,hypr,kitty,fonts,ghostty"
 for folder in $(echo $STOW_FOLDERS | sed "s/,/ /g")
 do 
     echo "stow $folder"
