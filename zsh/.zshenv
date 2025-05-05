@@ -4,7 +4,9 @@ if [[ -f "$HOME/.profile" ]]; then
     source $HOME/.profile
 fi
 
-. "$HOME/.cargo/env"
+if [[ -f "$HOME/.cargo/env" ]]; then
+    . "$HOME/.cargo/env"
+fi
 
 typeset -U path
 path=(~/.local/scripts /usr/local/texlive/2022/bin/x86_64-linux $path)

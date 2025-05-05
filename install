@@ -16,20 +16,20 @@ if [[ -z $DOTFILES ]]; then
     DOTFILES=$HOME/.dotfiles
 fi
 
+pkgs="stow, zsh, fzf, tmux, ripgrep, neovim, go, xdg-desktop-portal, hyprpolkitagent, less, ttf-jetbrains-mono-nerd, yad"
+echo "Installing $pkgs"
+sudo pacman -S --needed --noconfirm $(echo $pkgs | sed "s/, / /g")
+ 
+echo -e $SEPARATOR
+
 pushd $DOTFILES
-STOW_FOLDERS="scripts,tmux,nvim,zsh,hypr,kitty,fonts"
+STOW_FOLDERS="scripts,tmux,nvim,zsh,hypr,kitty,fonts,ghostty"
 for folder in $(echo $STOW_FOLDERS | sed "s/,/ /g")
 do 
     echo "stow $folder"
     stow -R $folder
 done
 
-echo -e $SEPARATOR
-
-pkgs="stow, zsh, fzf, tmux, ripgrep, neovim, go, xdg-desktop-portal, hyprpolkitagent"
-echo "Installing $pkgs"
-sudo pacman -S --needed --noconfirm $(echo $pkgs | sed "s/, / /g")
- 
 echo -e $SEPARATOR
 
 echo "Pulling git submodules"

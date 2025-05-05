@@ -10,3 +10,7 @@ There are two scripts to either `install` and `clean` the environment.\
 Use `chmod +x ./install ./clean_env` to make them executable and then run `./install` or `./clean_env` based on the operation you wanna do.
 NOTE: the scripts will install packages and stuffs, so check them before executing.
 
+
+## ARCH stuff
+### disable faillock
+modify `/etc/security/faillock.conf` setting `deny = 0`
