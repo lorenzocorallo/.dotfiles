@@ -4,7 +4,7 @@ source ~/.profile ~/.env ~/.zshenv
 
 ARCH=""
 SEPARATOR='\n====================================\n'
-PACMAN_PKGS="stow zsh fzf tmux ripgrep neovim go xdg-desktop-portal hyprpolkitagent less ttf-jetbrains-mono-nerd yad waybar hyprlock pavucontrol hyprpaper rofi-wayland"
+PACMAN_PKGS="stow zsh fzf tmux ripgrep neovim go xdg-desktop-portal hyprpolkitagent less ttf-jetbrains-mono-nerd yad waybar hyprlock pavucontrol hyprpaper rofi-wayland grim slurp"
 STOW_FOLDERS="scripts,tmux,nvim,zsh,hypr,kitty,fonts,ghostty,waybar,rofi"
 case $(uname -m) in
   i386 | i686)   ARCH="386" ;;
