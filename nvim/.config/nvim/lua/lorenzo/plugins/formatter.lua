@@ -1,79 +1,42 @@
 return {
-  "mhartington/formatter.nvim",
-  ft = {
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-    "cs",
-    "lua",
-    "json",
-    "markdown",
-    "python",
-    "css",
-    "html",
-    "go",
-  },
+  "stevearc/conform.nvim",
   config = function()
-    -- local util = require("formatter.util")
-
-    require("formatter").setup({
-      filetype = {
-        lua = {
-          require("formatter.filetypes.lua").stylua,
-        },
-
-        javascript = {
-          require("formatter.filetypes.javascript").prettier,
-        },
-
-        javascriptreact = {
-          require("formatter.filetypes.javascriptreact").prettier,
-        },
-
-        typescript = {
-          require("formatter.filetypes.typescript").prettier,
-        },
-
-        typescriptreact = {
-          require("formatter.filetypes.typescriptreact").prettier,
-        },
-
-        cs = {
-          require("formatter.filetypes.cs").csharpier,
-        },
-
-        python = {
-          require("formatter.filetypes.python").ruff,
-        },
-
-        json = {
-          require("formatter.filetypes.json").jq,
-        },
-
-        markdown = {
-          require("formatter.filetypes.markdown").prettier,
-        },
-
-        html = {
-          require("formatter.filetypes.html").prettier,
-        },
-
-        css = {
-          require("formatter.filetypes.css").prettier,
-        },
-
-        go = {
-          require("formatter.filetypes.go").gofumpt,
-        }
+    local js = {
+      "biome-check",
+      prettier = {
+        require_cwd = true,
+      },
+    }
+    require("conform").setup({
+      formatters_by_ft = {
+        lua = { "stylua" },
+        javascript = js,
+        javascriptreact = js,
+        typescript = js,
+        typescriptreact = js,
+        json = js,
+        css = js,
+        html = js,
+        python = { "ruff_format" },
+        markdown = { "prettier" },
+        yaml = { "prettier" },
+        go = { "goimports", "gofumpt" },
+      },
+      format_on_save = {
+        timeout_ms = 300,
+        lsp_fallback = true,
       },
     })
+    require("conform").formatters["biome-check"] = {
+      append_args = { "--unsafe" },
+    }
 
-    vim.keymap.set(
-      "n",
-      "<leader>f",
-      ":Format <CR>",
-      { desc = "[F]ormat Current File", silent = true }
-    )
+    vim.keymap.set({ "n", "v" }, "<leader>f", function()
+      require("conform").format({
+        lsp_fallback = true,
+        async = false,
+        timeout_ms = 500,
+      })
+    end, { desc = "[F]ormat current file/buffer", silent = true })
   end,
 }

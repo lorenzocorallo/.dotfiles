@@ -4,13 +4,24 @@ return {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     { "j-hui/fidget.nvim", opts = {} },
-    { "folke/neodev.nvim", opts = {} },
+    {
+      "folke/lazydev.nvim",
+      ft = "lua", -- only load on lua files
+      opts = {
+        library = {
+          -- See the configuration section for more details
+          -- Load luvit types when the `vim.uv` word is found
+          -- { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+          "LazyVim"
+        },
+      },
+    },
     "hrsh7th/nvim-cmp",
     "L3MON4D3/LuaSnip",
     "saadparwaiz1/cmp_luasnip",
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-path",
-    "fatih/vim-go",
+    { "fatih/vim-go", tag = "v1.29" },
   },
   priority = 100,
   config = function()
@@ -21,7 +32,7 @@ return {
       "eslint",
       "lua_ls",
       "rust_analyzer",
-      "ruff_lsp",
+      "ruff",
       "pyright",
       "gopls",
     }
@@ -29,38 +40,6 @@ return {
     -- if client.name == "omnisharp" then
     --   client.server_capabilities.semanticTokensProvider = nil
     -- end
-
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-
-    local handlers = {
-      function(server_name)
-        require("lspconfig")[server_name].setup({
-          capabilities = capabilities,
-        })
-      end,
-      ["lua_ls"] = function()
-        local lspconfig = require("lspconfig")
-        lspconfig.lua_ls.setup({
-          settings = {
-            Lua = {
-              diagnostics = {
-                globals = { "vim" },
-              },
-            },
-          },
-        })
-      end,
-      ["gopls"] = function()
-        require("lspconfig").gopls.setup({
-          settings = {
-            gopls = {
-              gofumpt = true,
-            },
-          },
-        })
-      end,
-    }
 
     -- vim.go config --
     vim.g.go_addtags_transform = "camelcase"
@@ -74,10 +53,14 @@ return {
     vim.g.go_term_mode = "split"
     -- END --
 
+    -- automatic enable installed servers
     require("mason-lspconfig").setup({
       ensure_installed = ensure_installed,
-      handlers = handlers,
+      automatic_enable = {
+        exclude = { "ts_ls" },
+      },
     })
+    vim.lsp.enable("tsgo")
 
     -- REMAP --
     local autocmd = require("lorenzo.autocmd").autocmd
@@ -91,7 +74,7 @@ return {
             focusable = true,
             style = "minimal",
             border = "rounded",
-            source = "always",
+            source = true,
             header = "",
             prefix = "",
           },
