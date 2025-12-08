@@ -12,7 +12,7 @@ return {
           -- See the configuration section for more details
           -- Load luvit types when the `vim.uv` word is found
           -- { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-          "LazyVim"
+          "LazyVim",
         },
       },
     },
@@ -25,7 +25,7 @@ return {
   },
   priority = 100,
   config = function()
-    require("mason").setup()
+    require("mason").setup({ ui = { border = "rounded" } })
 
     local ensure_installed = {
       "ts_ls",
@@ -57,10 +57,10 @@ return {
     require("mason-lspconfig").setup({
       ensure_installed = ensure_installed,
       automatic_enable = {
-        exclude = { "ts_ls" },
+        exclude = {},
       },
     })
-    vim.lsp.enable("tsgo")
+    -- vim.lsp.enable("tsgo")
 
     -- REMAP --
     local autocmd = require("lorenzo.autocmd").autocmd
@@ -89,7 +89,13 @@ return {
           vim.keymap.set(mode or "n", keys, func, { buffer = e.buf, desc = desc })
         end
 
-        keymap("K", vim.lsp.buf.hover, "Hover")
+        local hover = function()
+          vim.lsp.buf.hover({
+            border = "rounded",
+          })
+        end
+
+        keymap("K", hover, "Hover")
         keymap("<leader>\\", ":LspRestart<CR>", "Restart the LSP")
         keymap("<leader>c", vim.lsp.buf.code_action, "[C]ode Action")
         keymap("<leader>vd", vim.diagnostic.open_float, "[V]iew [D]iagnostics")
@@ -153,6 +159,10 @@ return {
       },
       completion = {
         completeopt = "menu,menuone,noinsert",
+      },
+      window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
       },
       mapping = cmp.mapping.preset.insert({
         ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),

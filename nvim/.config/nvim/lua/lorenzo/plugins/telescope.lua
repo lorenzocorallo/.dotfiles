@@ -12,8 +12,14 @@ return {
     },
   },
   config = function()
-    require("telescope").setup({})
-    pcall(require("telescope").load_extension, "fzf")
+    require("telescope").setup({
+      -- winblend = 100,
+      extensions = {
+        fzf = {},
+      },
+    })
+
+    require("telescope").load_extension("fzf")
 
     local builtin = require("telescope.builtin")
     vim.keymap.set("n", "<C-p>", builtin.git_files, { desc = "Search Git [P]roject File" })

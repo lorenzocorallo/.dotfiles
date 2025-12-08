@@ -1,5 +1,3 @@
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "[V]iew [P]roject" })
-
 -- set W as w (write)
 vim.cmd([[cnoreabbrev W w]])
 
