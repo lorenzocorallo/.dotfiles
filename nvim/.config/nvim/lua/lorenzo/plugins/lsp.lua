@@ -95,23 +95,18 @@ return {
           })
         end
 
+        local telescope = require("telescope.builtin")
         keymap("K", hover, "Hover")
         keymap("<leader>\\", ":LspRestart<CR>", "Restart the LSP")
         keymap("<leader>c", vim.lsp.buf.code_action, "[C]ode Action")
         keymap("<leader>vd", vim.diagnostic.open_float, "[V]iew [D]iagnostics")
-        keymap("<leader>vws", vim.lsp.buf.workspace_symbol, "[V]iew [W]orkspace [S]ymbols")
-        keymap("<leader>vrr", vim.lsp.buf.references, "[V]iew [R]eferences")
         keymap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
         keymap("<C-h>", vim.lsp.buf.signature_help, "Signature [H]elp", "i")
-
-        -- telescope remaps --
-        keymap(
-          "<leader>vds",
-          require("telescope.builtin").lsp_document_symbols,
-          "[V]iew [D]ocument [S]ymbols"
-        )
-        keymap("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-        keymap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+        keymap("<leader>vws", telescope.lsp_workspace_symbols, "[V]iew [W]orkspace [S]ymbols")
+        keymap("<leader>vds", telescope.lsp_document_symbols, "[V]iew [D]ocument [S]ymbols")
+        keymap("gd", telescope.lsp_definitions, "[G]oto [D]efinition")
+        keymap("<leader>vrr", telescope.lsp_references, "[V]iew [R]eferences")
+        keymap("<leader>gr", telescope.lsp_references, "[G]oto [R]eferences") -- old
         -- end
 
         local termCmdAutofocus = function(cmd)

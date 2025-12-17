@@ -45,3 +45,6 @@ vim.keymap.set(
 
 -- rename word under cursor
 vim.keymap.set("n", "<leader>*", ":%s/<C-r><C-w>/", { desc = "Rename Current Word" })
+
+vim.keymap.del("n", "grr")
+vim.keymap.del("n", "grn")

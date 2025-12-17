@@ -20,6 +20,7 @@ return {
     })
 
     require("telescope").load_extension("fzf")
+    require("telescope").load_extension("neoclip")
 
     local builtin = require("telescope.builtin")
     vim.keymap.set("n", "<C-p>", builtin.git_files, { desc = "Search Git [P]roject File" })
@@ -37,5 +38,6 @@ return {
 
     vim.keymap.set("n", "<leader>vh", builtin.help_tags, { desc = "[V]iew [H]elp" })
     vim.keymap.set("n", "<leader>vk", builtin.keymaps, { desc = "[V]iew [K]eymaps" })
+    vim.keymap.set("n", "<leader>vc", ":Telescope neoclip<CR>", { desc = "[V]iew [C]lipboard" })
   end,
 }
