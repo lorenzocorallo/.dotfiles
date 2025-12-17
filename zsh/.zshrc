@@ -131,3 +131,6 @@ esac
 
 # Turso
 export PATH="/home/lorenzo/.turso:$PATH"
+
+# disable CTRL+D to exit
+setopt ignoreeof
